@@ -5,7 +5,7 @@ The requirements:
 Use the following code in the command prompt:
 pip install -r requirements.txt
 
-3. Change the following parameters for the simulation in config.txt
+3. Change the following parameters for the simulation in config.py
 -- sim_speed : the speed of the simulation, the default value is 3
 -- agent_vel : the velocity of the agents, default value set to 1.5 times the simulation speed. It is not recommended to change this value. 
 -- bullet_vel : the velocity of the bullets the default value is 7 times the simulation speed. Change this value to simulate different firing rates
