@@ -41,7 +41,7 @@ Cost Function Value
 6. To Do
 Experiments to run:
 -- Change of all parameters and compare them with the number of agents survive such as:
-a. How the survival rate of agents changes with different values for cover radius. This is going to explain how the surviving rate is effected under different rates of decentralized and centralized communication. When the cover_radius is infinity, the system has central communication.
+a. How the survival rate of agents changes with different values for cover radius. This is going to explain how the surviving rate is affected under different rates of decentralized and centralized communication. When the cover_radius is infinity, the system has central communication.
 b. Compare the collective survival rate for consecutive waves of drones. This will help us understand for what agent_vel', bullet_vel and wave_length values the primary wave can fully or partially protect the secondary wave.
 c. Compare the wave_length with respect to cover_radius to compare how the amount of information available changes the survival rates for the different number of drones.
 d. How the survival rates of agents change in terms of the cost function. This will help us understand how immobility of the drones affect the survival rates.
