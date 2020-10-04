@@ -27,12 +27,12 @@ xxpos = int((WIDTH - xpos * 2) / (wave_length - 1))
 number_waves = no_of_waves
 
 # Load assets
-RED_AGENT = pygame.transform.scale(pygame.image.load(
-    os.path.join("Pygame_Simulation\\assets", "pixel_ship_red_small.png")), (40, 30))
+RED_AGENT = pygame.transform.scale(pygame.image.load(os.path.join(
+    "Pygame_Simulation\\assets", "pixel_ship_red_small.png")), (40, 30))
 #RED_AGENT = pygame.image.load(os.path.join("assets","pixel_ship_red_small.png"))
 # Lasers
-RED_LASER = pygame.transform.scale(pygame.image.load(
-    os.path.join("Pygame_Simulation\\assets", "pixel_laser_red.png")), (50, 40))
+RED_LASER = pygame.transform.scale(pygame.image.load(os.path.join(
+    "Pygame_Simulation\\assets", "pixel_laser_red.png")), (50, 40))
 #RED_LASER = pygame.image.load(os.path.join("assets","pixel_laser_red.png"))
 # Backgrond
 BG = pygame.transform.scale(
@@ -55,12 +55,15 @@ class Agent:
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
         self.cover = False
-        self.cost = cost
+        self.cost = cost_value
+        self.max_cost = cost_value
 
     def draw(self, window):  # To show/draw the agent on the screen
         # Draw agent image at its own x/y coordinate
         window.blit(self.ship_img, (self.x, self.y))
         self.healthbar(window)  # Also draw the healthbar for each agent
+        # if you dont want to see battery health bar comment this line
+        self.battery_healthbar(window)
 
     def move(self, vel):  # To move the agent on the screen every loop
         self.y -= vel  # Since y increases as you move down in pygame screen, so we reduce y to move up
@@ -70,6 +73,24 @@ class Agent:
 
     def get_height(self):
         return self.ship_img.get_height()
+
+    def battery_healthbar(self, window):
+        pygame.draw.rect(
+            window,
+            (255,
+             0,
+             0),
+            (self.x,
+             self.y +
+             self.get_height() +
+             20,
+             self.ship_img.get_width(),
+             10))
+        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y +
+                                               self.get_height() +
+                                               20, self.ship_img.get_width() *
+                                               (self.cost /
+                                                   self.max_cost), 10))
 
     def healthbar(self, window):  # Healthbar for each of the agent
         pygame.draw.rect(
@@ -87,7 +108,7 @@ class Agent:
                                                self.get_height() +
                                                5, self.ship_img.get_width() *
                                                (self.health /
-                                                   self.max_health), 5))
+                                                self.max_health), 5))
         #pygame.draw.circle(window, (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255)), (self.x + int(self.get_width()/2), self.y + int(self.get_height()/2)), 150, 1)
         if Show_covering:
             pygame.draw.circle(window,

@@ -1,5 +1,5 @@
 Number of Initial Agents: 30 
-Number of Agents survived: 28 
+Number of Agents survived: 21 
 Number of wave of bullets fired: 3 
 
 Variables Used 
