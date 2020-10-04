@@ -16,7 +16,10 @@ pip install -r requirements.txt
 -- Show_covering : Boolean Variable to toggle to see the covering radius of each agent.The default value is True
 -- cost_value : Number of times each agent can cover other agents. "0" means no agent covers and "99" means agent covers as many times as possible. The default value is 3. Change this to limit the movement of the covering drones
 
-4. The results: 
+4. How to run experiment:
+Change the parameters from config.py and run main_beta.py
+
+5. The results: 
 open the file Results.txt
 
 You can observe the following results for the values of variables:
@@ -35,7 +38,7 @@ Covering Radius
 Agent covering (Boolean)
 Cost Function Value
 
-5. To Do
+6. To Do
 Experiments to run:
 -- Change of all parameters and compare them with the number of agents survive such as:
 a. How the survival rate of agents changes with different values for cover radius. This is going to explain how the surviving rate is effected under different rates of decentralized and centralized communication. When the cover_radius is infinity, the system has central communication.
