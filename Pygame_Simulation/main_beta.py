@@ -2,6 +2,8 @@ import pygame
 import os
 import time
 import random
+import config
+from sys import exit
 from config import *
 random.seed(3)
 pygame.font.init()  # To show counter, font needs to be initialized
@@ -164,8 +166,34 @@ def cover(obj1, obj2):
         obj2.y = obj1.y
         obj2.y -= 80
 
+def save_results(main_parameter='', parameter_value=None, exp_number=None, waves_of_bullets=None):
+    if not os.path.exists('Experiments'):
+        os.makedirs('Experiments')
 
-def main():
+    # Check if arguments are passed
+    if main_parameter == '' or parameter_value is None or exp_number is None:
+        return 1
+
+    dir_name = 'Experiments\\{}_{}\\'.format(main_parameter, parameter_value)
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    
+    text_file = open(dir_name + 'exp_{}.txt'.format(exp_number), "w")
+    text_file.write(
+        "Number of Initial Agents: %s \nNumber of Agents survived: %s \nNumber of wave of bullets fired: %s \n" %
+        (wave_length, counter, waves_of_bullets))
+    text_file.write("\n")
+    text_file.write("Variables Used \n")
+    text_file.write("Agent Velocity: %s\n" % (agent_vel * sim_speed))
+    text_file.write("Bullet Velocity: %s\n" % (bullet_vel * sim_speed))
+    text_file.write("Number of Agents: %s\n" % wave_length)
+    text_file.write("Number of Waves: %s\n" % number_waves)
+    text_file.write("Covering Radius: %s\n" % cover_radius)
+    text_file.write("Agent covering (Boolean): %s\n" % To_cover)
+    text_file.write("Cost Function Value: %s\n" % cost_value)
+    text_file.close()
+
+def main(main_parameter='', parameter_value=None, exp_number=None):
     def redraw_window():  # This function can only be called in "main" Function. Basically updates window every frame
         # blit draws the image on the background at the given coordinates
         WIN.blit(BG, (0, 0))
@@ -236,6 +264,8 @@ def main():
 
         for event in pygame.event.get():  # Incase someone presses a button
             if event.type == pygame.QUIT:  # If the button pressebd is "X" in the top right to close the window, then the simulation should stop
+                pygame.quit()
+                exit()
                 run = False  # Stop the main while loop on closing
 
         if len(agents) == 0 and len(bullets) == 0:
@@ -291,20 +321,12 @@ def main():
 
         # time.sleep(0.5)
         redraw_window()  # Finally, redraw_window function is called to update every object on the screen for the next frame
-    text_file = open("Result.txt", "w")
-    text_file.write(
-        "Number of Initial Agents: %s \nNumber of Agents survived: %s \nNumber of wave of bullets fired: %s \n" %
-        (wave_length, counter, waves_of_bullets))
-    text_file.write("\n")
-    text_file.write("Variables Used \n")
-    text_file.write("Agent Velocity: %s\n" % (agent_vel * sim_speed))
-    text_file.write("Bullet Velocity: %s\n" % (bullet_vel * sim_speed))
-    text_file.write("Number of Agents: %s\n" % wave_length)
-    text_file.write("Number of Waves: %s\n" % number_waves)
-    text_file.write("Covering Radius: %s\n" % cover_radius)
-    text_file.write("Agent covering (Boolean): %s\n" % To_cover)
-    text_file.write("Cost Function Value: %s\n" % cost_value)
-    text_file.close()
+        if len(agents) == 0:
+            #pygame.quit()
+            run = False
+    pygame.quit()
+    save_results(main_parameter=main_parameter, parameter_value=parameter_value, exp_number=exp_number, waves_of_bullets=waves_of_bullets)
 
 
-main()  # Calling main function to start running the simulation.
+# For running one experiment
+#main()

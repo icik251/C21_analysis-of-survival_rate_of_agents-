@@ -1,5 +1,5 @@
 # Simulation speed
-sim_speed = 1
+sim_speed = 3
 # RECOMMENDED VALUE = "1.5". Velocity of the agents moving up to the finish line.
 agent_vel = 1.5 * sim_speed
 # RECOMMENDED VALUE = "7". Velocity of the bullets firing down onto the agents.
