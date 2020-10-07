@@ -1,0 +1,12 @@
+Number of Initial Agents: 45 
+Number of Agents survived: 42 
+Number of wave of bullets fired: 3 
+
+Variables Used 
+Agent Velocity: 13.5
+Bullet Velocity: 63
+Number of Agents: 45
+Number of Waves: 3
+Covering Radius: 50
+Agent covering (Boolean): True
+Cost Function Value: 4
