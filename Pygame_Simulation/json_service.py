@@ -30,6 +30,10 @@ class JsonService:
             # Number of times each agent can cover other agents. "0" means no agent
             # covers and "99" means agent covers as many times as possible.
             self.json_dict['cost_value'] = 3
+            # random seed value
+            self.json_dict['random_seed'] = None
+            # directory to save experiment into
+            self.json_dict['dir_to_save_exp'] = None
 
             self.save_json()
 

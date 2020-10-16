@@ -13,7 +13,16 @@ if not sys.warnoptions:
 json_service_obj = JsonService()
 config_dict = json_service_obj.get_json_dict()
 
-random.seed(3)
+# Check if there is a random seed value and use it
+if config_dict['random_seed'] is not None:
+    random.seed(config_dict['random_seed'])
+    random_seed_value = 'random_seed_{}'.format(config_dict['random_seed'])
+else:
+    random_seed_value = 'random_seed_NONE'
+
+
+dir_to_save_exp = config_dict['dir_to_save_exp']
+
 pygame.font.init()  # To show counter, font needs to be initialized
 
 # Set window width/height and name of window
@@ -31,7 +40,7 @@ agents = []  # List to store all the agents on screen
 bullets = []  # List to store all the bullets on the screen
 # An object to help track time, will be used to run pygame on specific FPS
 clock = pygame.time.Clock()
-bullet_time = 1250 / config_dict['sim_speed']  # milisecond
+bullet_time = 500 / config_dict['sim_speed']  # milisecond
 xpos = 40
 xxpos = int((WIDTH - xpos * 2) / (config_dict['wave_length'] - 1))
 number_waves = config_dict['no_of_waves']
@@ -176,26 +185,20 @@ def cover(obj1, obj2):
         obj2.y -= 80
 
 
-def save_results(
-        main_parameter='',
-        parameter_value=None,
-        exp_number=None,
-        waves_of_bullets=None):
+def save_results(exp_number=None,waves_of_bullets=None, agent_to_wave=None):
     if not os.path.exists('Experiments'):
         os.makedirs('Experiments')
 
     # Check if arguments are passed
-    if main_parameter == '' or parameter_value is None or exp_number is None:
-        print(main_parameter)
-        print(parameter_value)
+    if exp_number is None:
         print(exp_number)
         return 1
 
-    dir_name = 'Experiments\\{}_{}\\'.format(main_parameter, parameter_value)
+    dir_name = 'Experiments\\{}\\'.format(dir_to_save_exp)
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
-    text_file = open(dir_name + 'exp_{}.txt'.format(exp_number), "w")
+    text_file = open(dir_name + 'exp_{}_{}.txt'.format(exp_number, random_seed_value), "w")
     text_file.write(
         "Number of Initial Agents: %s \nNumber of Agents survived: %s \nNumber of wave of bullets fired: %s \n" %
         (config_dict['wave_length'], counter, waves_of_bullets))
@@ -214,10 +217,11 @@ def save_results(
     text_file.write("Covering Radius: %s\n" % config_dict['cover_radius'])
     text_file.write("Agent covering (Boolean): %s\n" % config_dict['to_cover'])
     text_file.write("Cost Function Value: %s\n" % config_dict['cost_value'])
+    text_file.write("Config Dictionary for Graph: %s\n" % agent_to_wave)
     text_file.close()
 
 
-def main(main_parameter='', parameter_value=None, exp_number=None):
+def main(exp_number=None):
 
     def redraw_window():  # This function can only be called in "main" Function. Basically updates window every frame
         # blit draws the image on the background at the given coordinates
@@ -242,6 +246,8 @@ def main(main_parameter='', parameter_value=None, exp_number=None):
     global counter
     global number_waves
     waves_of_bullets = 0
+    agent_to_wave = {}
+    tick_counter = 0
     ms1 = int(round(time.time() * 1000))
 
     just_once = False
@@ -249,7 +255,8 @@ def main(main_parameter='', parameter_value=None, exp_number=None):
         # Means that for every second at most "FPS" frames should pass. Here,
         # FPS = 60
         clock.tick(FPS)
-
+        agent_to_wave[tick_counter] = counter + len(agents)
+        tick_counter += 1
         xpos = 40  # X-Position of the initial agent. Hard coded for now
 
         # Logic states, If there is no agent on the screen and the required
@@ -351,11 +358,8 @@ def main(main_parameter='', parameter_value=None, exp_number=None):
             pygame.quit()
             run = False
     # pygame.quit()
-    save_results(
-        main_parameter=main_parameter,
-        parameter_value=parameter_value,
-        exp_number=exp_number,
-        waves_of_bullets=waves_of_bullets)
+    del agent_to_wave[0]
+    save_results(exp_number=exp_number, waves_of_bullets=waves_of_bullets,agent_to_wave=agent_to_wave)
 
 # For running one experiment
 # main()
@@ -365,14 +369,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Run drone simulatiom')
-    parser.add_argument('--main_parameter', required=False,
-                        help='parameter name that does not change')
-    parser.add_argument('--parameter_value', required=False,
-                        help='value of the parameter')
     parser.add_argument('--exp_number', required=False,
                         help='number of experiment')
     args = parser.parse_args()
-    main(
-        main_parameter=args.main_parameter,
-        parameter_value=args.parameter_value,
-        exp_number=args.exp_number)
+    main(exp_number=args.exp_number)
