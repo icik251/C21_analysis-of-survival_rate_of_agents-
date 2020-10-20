@@ -1,1 +1,1 @@
-{"sim_speed": 1, "agent_vel": 1.5, "bullet_vel": 7, "wave_length": 30, "cover_radius": 100, "no_of_waves": 1, "to_cover": true, "show_covering": true, "cost_value": 3, "random_seed": null, "dir_to_save_exp": null}
+{"sim_speed": 1, "agent_vel": 1.5, "bullet_vel": 7, "wave_length": 30, "cover_radius": 200, "no_of_waves": 1, "to_cover": true, "show_covering": true, "cost_value": 3, "random_seed": null, "dir_to_save_exp": "cover_radius_200\\cost_value_3\\wave_length_30\\"}

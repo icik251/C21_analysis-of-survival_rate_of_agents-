@@ -5,6 +5,7 @@ import random
 from json_service import JsonService
 import sys
 import warnings
+from datetime import datetime
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
@@ -46,18 +47,19 @@ xxpos = int((WIDTH - xpos * 2) / (config_dict['wave_length'] - 1))
 number_waves = config_dict['no_of_waves']
 
 # Load assets
+assets_dir = os.path.join("Pygame_Simulation", "assets")
 RED_AGENT = pygame.transform.scale(pygame.image.load(os.path.join(
-    "Pygame_Simulation\\assets", "pixel_ship_red_small.png")), (40, 30))
+    assets_dir, "pixel_ship_red_small.png")), (40, 30))
 #RED_AGENT = pygame.image.load(os.path.join("assets","pixel_ship_red_small.png"))
 # Lasers
 RED_LASER = pygame.transform.scale(pygame.image.load(os.path.join(
-    "Pygame_Simulation\\assets", "pixel_laser_red.png")), (50, 40))
+    assets_dir, "pixel_laser_red.png")), (50, 40))
 #RED_LASER = pygame.image.load(os.path.join("assets","pixel_laser_red.png"))
 # Backgrond
 BG = pygame.transform.scale(
     pygame.image.load(
         os.path.join(
-            "Pygame_Simulation\\assets",
+            assets_dir,
             "background-black.png")),
     (WIDTH,
      HEIGHT))
@@ -185,7 +187,7 @@ def cover(obj1, obj2):
         obj2.y -= 80
 
 
-def save_results(exp_number=None,waves_of_bullets=None, agent_to_wave=None):
+def save_results(exp_number=None,waves_of_bullets=None, agent_to_wave=None, comp_time_to_wave=None):
     if not os.path.exists('Experiments'):
         os.makedirs('Experiments')
 
@@ -218,6 +220,7 @@ def save_results(exp_number=None,waves_of_bullets=None, agent_to_wave=None):
     text_file.write("Agent covering (Boolean): %s\n" % config_dict['to_cover'])
     text_file.write("Cost Function Value: %s\n" % config_dict['cost_value'])
     text_file.write("Config Dictionary for Graph: %s\n" % agent_to_wave)
+    text_file.write("Config Dictionary for Comp Time: %s\n" % comp_time_to_wave)
     text_file.close()
 
 
@@ -250,11 +253,16 @@ def main(exp_number=None):
     tick_counter = 0
     ms1 = int(round(time.time() * 1000))
 
+    # for computational time
+    comp_time_to_wave = {}
+
     just_once = False
     while run:
         # Means that for every second at most "FPS" frames should pass. Here,
         # FPS = 60
         clock.tick(FPS)
+
+        start_while_time = datetime.now()
         agent_to_wave[tick_counter] = counter + len(agents)
         tick_counter += 1
         xpos = 40  # X-Position of the initial agent. Hard coded for now
@@ -354,12 +362,21 @@ def main(exp_number=None):
 
         # time.sleep(0.5)
         redraw_window()  # Finally, redraw_window function is called to update every object on the screen for the next frame
+        
+        end_while_time = datetime.now()
+        comp_time = end_while_time - start_while_time
+        # saving in microseconds
+        comp_time_to_wave[tick_counter] = comp_time.microseconds
+
         if len(agents) == 0:
             pygame.quit()
             run = False
+
+        
     # pygame.quit()
     del agent_to_wave[0]
-    save_results(exp_number=exp_number, waves_of_bullets=waves_of_bullets,agent_to_wave=agent_to_wave)
+    save_results(exp_number=exp_number, waves_of_bullets=waves_of_bullets,agent_to_wave=agent_to_wave, 
+    comp_time_to_wave=comp_time_to_wave)
 
 # For running one experiment
 # main()

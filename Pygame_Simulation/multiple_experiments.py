@@ -11,7 +11,7 @@ list_of_cover_radius = [100, 200]
 json_service_obj = JsonService()
 json_dict = json_service_obj.get_json_dict()
 
-json_dict['to_cover'] = False
+json_dict['to_cover'] = True
 
 #json_dict['random_seed'] = 3
 num_of_experiments = 100
