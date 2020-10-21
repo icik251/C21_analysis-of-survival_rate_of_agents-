@@ -1,5 +1,5 @@
 # Requirements
-Install python version 3.8.5
+Install Python 3.8.5
 
 Use the following line in the command prompt to install all dependencies:
 pip install -r requirements.txt
