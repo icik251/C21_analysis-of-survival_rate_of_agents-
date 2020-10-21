@@ -38,11 +38,11 @@ class JsonService:
             self.save_json()
 
     def save_json(self):
-        with open('config.txt', 'w') as json_file:
+        with open('config.json', 'w') as json_file:
             json.dump(self.json_dict, json_file)
 
     def read_json(self):
-        with open('config.txt') as json_file:
+        with open('config.json') as json_file:
             self.json_dict = json.load(json_file)
 
     def get_json_dict(self):
@@ -54,7 +54,7 @@ class JsonService:
         self.save_json()
 
     def json_config_exists(self):
-        if os.path.isfile('config.txt'):
+        if os.path.isfile('config.json'):
             return True
         else:
             return False
