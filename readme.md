@@ -1,11 +1,12 @@
 # Requirements
-Install Python 3.8.5
+Install Python 3.8.5.
 
 Use the following line in the command prompt to install all dependencies:
 pip install -r requirements.txt
 
 # Parameters
 Parameter values are saved in "config.json" which is created automatically if it does not exist while trying to run a simulation. On the first creation of the file, the parameters are set with the default values. The parameters can be changed by using the class "JsonService" in "json_service.py". 
+
 How to use JsonService?
 1. Initialize object of the class.
 2. Call method get_json_dict(), which returns the content of the json as dictionary.
@@ -15,7 +16,7 @@ json_dict['cost_value'] = 3
 json_dict['random_seed'] = None
 json_dict['to_cover'] = True
 4. Call method update_json_dict(new_dict), where "new_dict" expects a dictionary (the json_dict with the changed parameter values). This method will save the new config.json file.
-5. Run simulation. 
+5. Run simulation (see the next section). 
 
 * sim_speed : The speed of the simulation. The default value is 1. The parameter can take any positive integer.
 * agent_vel : Velocity of the agents, which has a default and recommended value of 1.5. The default value is chosen by empirically, while trying to make the simulation realistic as possible.
@@ -34,11 +35,11 @@ Parameter to implement:
 
 # How to run a single experiment
 1. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values. You can do that in the "single_experiment.py" file.
-2. Run "single_experiment.py"
+2. Run "single_experiment.py" file.
 
 # How to run multiple experiments (our experiment design)
 1. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values. You can do that in the "multiple_experiment.py" file. 
-2. Run "multiple_experiment.py"
+2. Run "multiple_experiment.py" file.
 
 If you want to replicate experimental results use parameter "random_seed".
 
