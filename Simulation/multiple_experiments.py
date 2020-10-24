@@ -37,7 +37,8 @@ for cover_radius_val in list_of_cover_radius:
                 # update changes in json
                 json_service_obj.update_json_dict(json_dict)
 
-                # main_beta.py expects argument "exp_number" so that we can save multiple experiments results
+                # main_beta.py expects argument "exp_number" so that we can
+                # save multiple experiments results
                 subprocess.run(
-                    'python {} --exp_number {}'.format(os.path.join(SOURCE_FILE_DIR,"main.py"), i),
+                    'python {} --exp_number {}'.format(os.path.join(SOURCE_FILE_DIR, "main.py"), i),
                     shell=True)

@@ -9,6 +9,7 @@ def collide(obj1, obj2):
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (int(offset_x), int(offset_y)))
 
+
 def move_agents(agents, survived_agents, agent_vel):
     """ This method moves the agents.
 
@@ -28,9 +29,11 @@ def move_agents(agents, survived_agents, agent_vel):
         if agent.y < 150:
             # increase the count of agents survived
             survived_agents += 1
-            # And remove the agent from the list of agents as it is now offscreen
+            # And remove the agent from the list of agents as it is now
+            # offscreen
             agents.remove(agent)
     return survived_agents
+
 
 def cover(obj1, obj2):
     """ This method is for covering.
