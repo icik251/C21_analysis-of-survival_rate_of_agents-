@@ -11,10 +11,10 @@ How to use JsonService?
 1. Initialize object of the class.
 2. Call method get_json_dict(), which returns the content of the json as dictionary.
 3. Change parameters in dictionary. Example: 
-json_dict['cover_radius'] = 100
-json_dict['cost_value'] = 3
-json_dict['random_seed'] = None
-json_dict['to_cover'] = True
+* json_dict['cover_radius'] = 100
+* json_dict['cost_value'] = 3
+* json_dict['random_seed'] = None
+* json_dict['to_cover'] = True
 4. Call method update_json_dict(new_dict), where "new_dict" expects a dictionary (the json_dict with the changed parameter values). This method will save the new config.json file.
 5. Run simulation (see the next section). 
 
