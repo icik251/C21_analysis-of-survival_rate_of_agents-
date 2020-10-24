@@ -33,13 +33,22 @@ json_dict['to_cover'] = True
 Parameter to implement:
 * communication - The type of communication for the current simulation. The default value is None. The parameter can take string values "decentralized" or "centralized" for decentralized or centralized communication, respectively.
 
+# Requirement for the directory path - IMPORTANT!
+The path to the project folder should not have any spaces.
+D:\PythonProjects\DMAS Project\...> - This will not work when running experiment. - WRONG!
+D:\PythonProjects\DMAS_Project\...> - This will successfully run the experiment. - CORRECT!
+
 # How to run a single experiment
-1. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values. You can do that in the "single_experiment.py" file.
-2. Run "single_experiment.py" file.
+1. In "Simulation" folder open the "single_experiment.py" file.
+2. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values.
+3. Run "single_experiment.py" file.
+OR
+You can run "main.py" for a single simulation. This will not save any results for the experiment.
 
 # How to run multiple experiments (our experiment design)
-1. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values. You can do that in the "multiple_experiment.py" file. 
-2. Run "multiple_experiment.py" file.
+1. In "Simulation" folder open the "multiple_experiment.py" file.
+2. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values. You can do that in the "multiple_experiment.py" file. 
+3. Run "multiple_experiment.py" file.
 
 If you want to replicate experimental results use parameter "random_seed".
 
