@@ -41,15 +41,23 @@ print(SOURCE_FILE_DIR)
 # Load assets
 ASSETS_DIR = os.path.join(SOURCE_FILE_DIR, "assets")
 # Drone
-RED_AGENT = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_DIR,"pixel_ship_red_small.png")), (40,30))
+RED_AGENT = pygame.transform.scale(pygame.image.load(
+    os.path.join(ASSETS_DIR, "pixel_ship_red_small.png")), (40, 30))
 # Lasers
-RED_LASER = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_DIR,"pixel_laser_red.png")),(50, 40))
+RED_LASER = pygame.transform.scale(pygame.image.load(
+    os.path.join(ASSETS_DIR, "pixel_laser_red.png")), (50, 40))
 # Backgrond
-BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_DIR,"background-black.png")),(WIDTH,HEIGHT))
+BG = pygame.transform.scale(
+    pygame.image.load(
+        os.path.join(
+            ASSETS_DIR,
+            "background-black.png")),
+    (WIDTH,
+     HEIGHT))
 
 
 def main(exp_number=None):
-    """ Main logic of the simulation. 
+    """ Main logic of the simulation.
         Here, initialization and movement of agents is happening.
 
         exp_number:
@@ -74,7 +82,7 @@ def main(exp_number=None):
     number_waves = CONFIG_DICT['no_of_waves']
     just_once = False
 
-    def redraw_window():  
+    def redraw_window():
         """ This function can only be called in "main" Function. Basically updates window every frame
             blit draws the image on the background at the given coordinates.
         """
@@ -88,10 +96,12 @@ def main(exp_number=None):
         pygame.draw.line(WIN, (255, 0, 0), (0, 150), (WIDTH, 150), 2)
 
         for agent in agents:
-            # Every screen update, draw the agents present in the agents[] list on the screen
+            # Every screen update, draw the agents present in the agents[] list
+            # on the screen
             agent.draw(WIN)
         for bullet in bullets:
-            # Every screen update, draw the bullets present in the bullets[] list on screen
+            # Every screen update, draw the bullets present in the bullets[]
+            # list on screen
             bullet.draw(WIN)
 
         # Updates the entire surface/screen every loop
@@ -112,8 +122,8 @@ def main(exp_number=None):
             # initialising to run the loop "length" number of times to create
             # the required number of agents
             for i in range(CONFIG_DICT['wave_length']):
-                agent = Agent(x=xpos, y=random.randrange(HEIGHT - 100, HEIGHT), 
-                                    config_dict=CONFIG_DICT, ship_img=RED_AGENT)
+                agent = Agent(x=xpos, y=random.randrange(HEIGHT - 100, HEIGHT),
+                              config_dict=CONFIG_DICT, ship_img=RED_AGENT)
                 # Add the new initialized agent to the agent list
                 agents.append(agent)
                 xpos += xxpos  # Incresing Xpos value for next agent
@@ -121,7 +131,8 @@ def main(exp_number=None):
 
         ms2 = int(round(time.time() * 1000))
         xpos = 40  # Since we're using a grid patern, bullets should start at the same point as agents
-        # Logic states, if there is no bullet present on screen and if there are still some surviving agents, make new bullets
+        # Logic states, if there is no bullet present on screen and if there
+        # are still some surviving agents, make new bullets
         if ms2 - ms1 > bullet_time and len(agents) != 0:
             waves_of_bullets += 1
             ms1 = ms2
@@ -131,7 +142,8 @@ def main(exp_number=None):
                 # Start them at the same Xpos, but subtract its own size so it
                 # centres on the grid and in the straight line with the agent
                 bullet = Bullet(x=xpos, y=0, bullet_img=RED_LASER)
-                # This line is used to send in a random wave of bullets every time
+                # This line is used to send in a random wave of bullets every
+                # time
                 if(random.randrange(0, 100)) % 2 == 0:
                     # The bullet is only appended to the bullet_list.
                     # "bullets[]" if the condition is met.
@@ -155,7 +167,8 @@ def main(exp_number=None):
                 agents[4].health = 1
                 just_once = True
 
-        survived_agents = move_agents(agents, survived_agents, CONFIG_DICT['agent_vel'])
+        survived_agents = move_agents(
+            agents, survived_agents, CONFIG_DICT['agent_vel'])
 
         for bullet in bullets:  # Similar loop description as for agents but for bullets
             bullet.move(CONFIG_DICT['bullet_vel'])
@@ -193,9 +206,10 @@ def main(exp_number=None):
                         agent.cover = True
                         tnega.cost -= 1
 
-        # Finally, redraw_window function is called to update every object on the screen for the next frame
+        # Finally, redraw_window function is called to update every object on
+        # the screen for the next frame
         redraw_window()
-        
+
         end_while_time = datetime.now()
         comp_time = end_while_time - start_while_time
         # Saving in microseconds
@@ -206,10 +220,15 @@ def main(exp_number=None):
             run = False
 
     del agents_to_wave[0]
-    results_service_obj = ResultService(config_dict=CONFIG_DICT, num_survived_agents=survived_agents,
-                                        exp_number=exp_number, waves_of_bullets=waves_of_bullets, 
-                                        agents_to_wave=agents_to_wave, comp_time_to_wave=comp_time_to_wave)
+    results_service_obj = ResultService(
+        config_dict=CONFIG_DICT,
+        num_survived_agents=survived_agents,
+        exp_number=exp_number,
+        waves_of_bullets=waves_of_bullets,
+        agents_to_wave=agents_to_wave,
+        comp_time_to_wave=comp_time_to_wave)
     results_service_obj.save_results()
+
 
 if __name__ == '__main__':
     import argparse

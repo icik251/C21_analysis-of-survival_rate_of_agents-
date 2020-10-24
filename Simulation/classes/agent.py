@@ -1,8 +1,8 @@
 import pygame
 
+
 class Agent:
     def __init__(self, x, y, config_dict, ship_img):
-
         """ This full class defines the bullets/lasers
 
             x:
@@ -13,7 +13,7 @@ class Agent:
                 The loaded bullet image.
         """
 
-        self.x = x  
+        self.x = x
         self.y = y
         self.ship_img = ship_img
         self.mask = pygame.mask.from_surface(self.ship_img)
@@ -44,7 +44,8 @@ class Agent:
             vel:
                 The velocity by which it will move
         """
-        # Since y increases as you move down in pygame screen, so we reduce y to move up
+        # Since y increases as you move down in pygame screen, so we reduce y
+        # to move up
         self.y -= vel
 
     def get_width(self):
@@ -102,7 +103,7 @@ class Agent:
                                                 self.max_health), 5))
         """
             Check if show covering parameter is set to True.
-        """                                       
+        """
         if self.show_covering:
             pygame.draw.circle(window,
                                (0,

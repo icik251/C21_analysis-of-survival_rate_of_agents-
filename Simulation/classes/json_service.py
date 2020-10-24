@@ -1,6 +1,7 @@
 import os
 import json
 
+
 class JsonService:
     def __init__(self):
         """ Service for JSON processing.
