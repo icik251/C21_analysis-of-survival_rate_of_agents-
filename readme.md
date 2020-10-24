@@ -43,7 +43,7 @@ The path to the project folder should not have any spaces.
 2. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values.
 3. Run "single_experiment.py" file.
 ------------------------------------
-You can run "main.py" for a single simulation. This will not save any results for the experiment.
+You can also run "main.py" for a single simulation. This will not save any results for the experiment.
 
 # How to run multiple experiments (our experiment design)
 1. In "Simulation" folder open the "multiple_experiment.py" file.
