@@ -1,9 +1,14 @@
 import os
 import json
 
-
 class JsonService:
     def __init__(self):
+        """ Service for JSON processing.
+
+            When an object is initialized, if the 'config.json' doesn't exist,
+            it is created automatically with the default parameter values.
+        """
+
         if not self.json_config_exists():
             self.json_dict = dict()
             # Simulation speed
@@ -38,22 +43,37 @@ class JsonService:
             self.save_json()
 
     def save_json(self):
+        """
+            Save JSON file.
+        """
         with open('config.json', 'w') as json_file:
             json.dump(self.json_dict, json_file)
 
     def read_json(self):
+        """
+            Read JSON file.
+        """
         with open('config.json') as json_file:
             self.json_dict = json.load(json_file)
 
     def get_json_dict(self):
+        """
+            Return a python dictionary with the JSON data.
+        """
         self.read_json()
         return self.json_dict
 
     def update_json_dict(self, new_dict):
+        """
+            Save a new dictionary as JSON file.
+        """
         self.json_dict = new_dict
         self.save_json()
 
     def json_config_exists(self):
+        """
+            Check if JSON file exists.
+        """
         if os.path.isfile('config.json'):
             return True
         else:

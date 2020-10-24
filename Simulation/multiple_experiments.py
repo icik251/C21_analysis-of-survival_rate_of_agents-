@@ -1,23 +1,25 @@
-from json_service import JsonService
 import random
-import main_beta
 import time
 import subprocess
+import os
+from classes.json_service import JsonService
 
-list_of_cost_values = list(range(1, 4))
-list_of_agents = [30]
-list_of_cover_radius = [100, 200]
+SOURCE_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 json_service_obj = JsonService()
 json_dict = json_service_obj.get_json_dict()
 
-"""Set parameters values for the multiple experiments. The set values are corresponding
-to our experiment design. Check readme.md for detailed information about the parameters."""
+""" Set parameters values for the multiple experiments. The set values are corresponding
+    to our experiment design. Check readme.md for detailed information about the parameters.
+"""
 
 json_dict['to_cover'] = True
+list_of_cost_values = list(range(1, 4))
+list_of_agents = [30]
+list_of_cover_radius = [100, 200]
 
 # Number of experiments per configuration
-num_of_experiments = 100
+num_of_experiments = 1
 
 # For running multiple experiments
 for cover_radius_val in list_of_cover_radius:
@@ -37,5 +39,5 @@ for cover_radius_val in list_of_cover_radius:
 
                 # main_beta.py expects argument "exp_number" so that we can save multiple experiments results
                 subprocess.run(
-                    'python Pygame_Simulation\\main_beta.py --exp_number {}'.format(i),
+                    'python {} --exp_number {}'.format(os.path.join(SOURCE_FILE_DIR,"main.py"), i),
                     shell=True)
