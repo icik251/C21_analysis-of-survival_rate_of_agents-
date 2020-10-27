@@ -1,0 +1,42 @@
+Cover radius: 100 
+Cost value: 1 
+Average survived: 17.25 
+Std Dev survived: 2.4753787588973126 
+Average comp time: 4823.814300000001 
+Std Dev comp time: 122.00687833048595 
+--------------------------- 
+Cover radius: 100 
+Cost value: 2 
+Average survived: 17.48 
+Std Dev survived: 2.6324133414036632 
+Average comp time: 4760.37899 
+Std Dev comp time: 130.27114098513874 
+--------------------------- 
+Cover radius: 100 
+Cost value: 3 
+Average survived: 17.78 
+Std Dev survived: 2.427261831776704 
+Average comp time: 4781.2035399999995 
+Std Dev comp time: 115.12945900510606 
+--------------------------- 
+Cover radius: 200 
+Cost value: 1 
+Average survived: 16.01 
+Std Dev survived: 2.0518040842146696 
+Average comp time: 4852.24781 
+Std Dev comp time: 131.0909060326989 
+--------------------------- 
+Cover radius: 200 
+Cost value: 2 
+Average survived: 15.94 
+Std Dev survived: 2.469088900789115 
+Average comp time: 4824.94625 
+Std Dev comp time: 109.82883432445006 
+--------------------------- 
+Cover radius: 200 
+Cost value: 3 
+Average survived: 15.85 
+Std Dev survived: 2.5821502667350713 
+Average comp time: 4859.801439999999 
+Std Dev comp time: 165.90440266685633 
+--------------------------- 

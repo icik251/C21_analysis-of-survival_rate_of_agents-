@@ -13,13 +13,14 @@ json_dict = json_service_obj.get_json_dict()
     to our experiment design. Check readme.md for detailed information about the parameters.
 """
 
-json_dict['to_cover'] = True
+json_dict['communication'] = 'centralized'
+json_dict['random_seed'] = None
 list_of_cost_values = list(range(1, 4))
 list_of_agents = [30]
 list_of_cover_radius = [100, 200]
 
 # Number of experiments per configuration
-num_of_experiments = 1
+num_of_experiments = 100
 
 # For running multiple experiments
 for cover_radius_val in list_of_cover_radius:
@@ -31,7 +32,7 @@ for cover_radius_val in list_of_cover_radius:
             for i in range(num_of_experiments):
 
                 # set the directory to save experiment
-                json_dict['dir_to_save_exp'] = 'cover_radius_{}\\cost_value_{}\\wave_length_{}\\'.format(
+                json_dict['dir_to_save_exp'] = 'cover_radius_{}\\cost_value_{}\\wave_length_{}'.format(
                     cover_radius_val, cost_value, agents_num)
 
                 # update changes in json

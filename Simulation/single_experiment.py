@@ -6,7 +6,6 @@ import os
 from classes.json_service import JsonService
 
 SOURCE_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 json_service_obj = JsonService()
 json_dict = json_service_obj.get_json_dict()
 
@@ -17,8 +16,8 @@ json_dict = json_service_obj.get_json_dict()
 json_dict['cover_radius'] = 100
 json_dict['cost_value'] = 3
 json_dict['random_seed'] = None
-json_dict['to_cover'] = True
-json_dict['dir_to_save_exp'] = "SingleExperiments\\"
+json_dict['communication'] = 'centralized'
+json_dict['dir_to_save_exp'] = "SingleExperiments"
 
 json_service_obj.update_json_dict(json_dict)
 

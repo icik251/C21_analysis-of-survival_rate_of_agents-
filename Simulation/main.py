@@ -81,6 +81,8 @@ def main(exp_number=None):
     xxpos = int((WIDTH - xpos * 2) / (CONFIG_DICT['wave_length'] - 1))
     number_waves = CONFIG_DICT['no_of_waves']
     just_once = False
+    
+    bool_loc, bool_config, bool_perm_config, bool_move = True, True, True, True
 
     def redraw_window():
         """ This function can only be called in "main" Function. Basically updates window every frame
@@ -195,15 +197,19 @@ def main(exp_number=None):
                         agents.remove(agent)
                 except ValueError:
                     pass
+                
+        if CONFIG_DICT['communication'] == 'centralized' or CONFIG_DICT['communication'] == 'decentralized':
+            if CONFIG_DICT['communication'] == 'centralized':
+                agents, bool_loc, bool_config, bool_perm_config, bool_move = centralized_logic(agents, xxpos, CONFIG_DICT, bool_loc, bool_config, bool_perm_config, bool_move)
 
-        for agent in agents[:]:
-            for tnega in agents:
-                if agent != tnega:
-                    if abs(
+            for agent in agents[:]:
+                for tnega in agents:
+                    if agent != tnega:
+                        if abs(
                             agent.x -
                             tnega.x) < CONFIG_DICT['cover_radius'] and agent.health == 1 and agent.cover == False and tnega.health != 1 and CONFIG_DICT['to_cover'] == True and tnega.cost != 0:
-                        cover(agent, tnega)
-                        agent.cover = True
+                            cover(agent, tnega)
+                            agent.cover = True
                         tnega.cost -= 1
 
         # Finally, redraw_window function is called to update every object on
