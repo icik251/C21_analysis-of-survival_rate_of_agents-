@@ -32,7 +32,7 @@ main_font = pygame.font.SysFont("comicsans", int(WIDTH / 25))
 # Load JSON file
 json_service_obj = JsonService()
 CONFIG_DICT = json_service_obj.get_json_dict()
-
+print(CONFIG_DICT)
 random.seed(CONFIG_DICT['random_seed'])
 
 # Get directory of current file
@@ -210,7 +210,7 @@ def main(exp_number=None):
                             tnega.x) < CONFIG_DICT['cover_radius'] and agent.health == 1 and agent.cover == False and tnega.health != 1 and CONFIG_DICT['to_cover'] == True and tnega.cost != 0:
                             cover(agent, tnega)
                             agent.cover = True
-                        tnega.cost -= 1
+                            tnega.cost -= 1
 
         # Finally, redraw_window function is called to update every object on
         # the screen for the next frame

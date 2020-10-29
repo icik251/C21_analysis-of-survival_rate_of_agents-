@@ -53,7 +53,7 @@ def centralized_logic(agents, xxpos, config_dict, bool_loc, bool_config, bool_pe
         cover_list = []
         global_cover_list = []
         agent_counter = 0
-        boundary_int = 2000
+        boundary_int = 3000
         permut_list = []
         new_global_perms = []
         global_perms = []

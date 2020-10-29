@@ -36,7 +36,7 @@ class Agent:
         # Also draw the healthbar for each agent.
         self.healthbar(window)
         # if you dont want to see battery health bar comment this line.
-        # self.battery_healthbar(window)
+        self.battery_healthbar(window)
 
     def move(self, vel):
         """ To move the agent on the screen every loop
