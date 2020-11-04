@@ -40,6 +40,8 @@ class JsonService:
             self.json_dict['random_seed'] = None
             # directory to save experiment into
             self.json_dict['dir_to_save_exp'] = None
+            # changing between communication approaches
+            self.json_dict['communication'] = 'baseline'
 
             self.save_json()
 
@@ -69,6 +71,7 @@ class JsonService:
             Save a new dictionary as JSON file.
         """
         self.json_dict = new_dict
+        self.update_communication()
         self.save_json()
 
     def json_config_exists(self):
@@ -79,3 +82,13 @@ class JsonService:
             return True
         else:
             return False
+        
+    def update_communication(self):
+        """ 
+            Set show_covering and to_cover to False if communication is None
+        """
+        if self.json_dict['communication'] == 'baseline':
+            self.json_dict['show_covering'] = False
+            self.json_dict['to_cover'] = False
+        elif self.json_dict['communication'] == 'centralized' or self.json_dict['communication'] == 'decentralized':
+            self.json_dict['to_cover'] = True

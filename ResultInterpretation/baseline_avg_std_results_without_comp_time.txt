@@ -1,0 +1,30 @@
+Cover radius: 100 
+Cost value: 1 
+Average survived: 7.73 
+Std Dev survived: 2.719761018913243 
+--------------------------- 
+Cover radius: 100 
+Cost value: 2 
+Average survived: 7.02 
+Std Dev survived: 2.323703939833989 
+--------------------------- 
+Cover radius: 100 
+Cost value: 3 
+Average survived: 7.09 
+Std Dev survived: 2.449877547960306 
+--------------------------- 
+Cover radius: 200 
+Cost value: 1 
+Average survived: 7.31 
+Std Dev survived: 2.3861894308709024 
+--------------------------- 
+Cover radius: 200 
+Cost value: 2 
+Average survived: 7.18 
+Std Dev survived: 2.491505568928153 
+--------------------------- 
+Cover radius: 200 
+Cost value: 3 
+Average survived: 7.12 
+Std Dev survived: 2.0701690752206687 
+--------------------------- 

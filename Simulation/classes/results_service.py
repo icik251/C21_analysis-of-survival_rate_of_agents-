@@ -31,7 +31,7 @@ class ResultService:
 
         if self.config_dict['dir_to_save_exp'] is not None:
             self.dir_name = os.path.join(
-                "Experiments", self.config_dict['dir_to_save_exp'])
+                "Experiments_{}".format(self.config_dict['communication']), self.config_dict['dir_to_save_exp'])
         else:
             self.dir_name = None
 
@@ -58,7 +58,6 @@ class ResultService:
         """
         Saving results in a text file in the provided directory.
         """
-
         if not self.is_exp_number_provided():
             return 1
         else:

@@ -12,51 +12,8 @@ from classes.bullet import Bullet
 from classes.results_service import ResultService
 from utils.sim_module import *
 
-if not sys.warnoptions:
-    warnings.simplefilter("ignore")
 
-"""Set PyGame settings"""
-
-# To show counter, font needs to be initialized
-pygame.font.init()
-# Set window width/height and name of window
-WIDTH, HEIGHT = 1000, 800
-# The main window to show the running simulation
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Agent Simulation")
-# Using the font to display surviving agents
-main_font = pygame.font.SysFont("comicsans", int(WIDTH / 25))
-
-"""Load everything needed for the simulation"""
-
-# Load JSON file
-json_service_obj = JsonService()
-CONFIG_DICT = json_service_obj.get_json_dict()
-
-random.seed(CONFIG_DICT['random_seed'])
-
-# Get directory of current file
-SOURCE_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-print(SOURCE_FILE_DIR)
-# Load assets
-ASSETS_DIR = os.path.join(SOURCE_FILE_DIR, "assets")
-# Drone
-RED_AGENT = pygame.transform.scale(pygame.image.load(
-    os.path.join(ASSETS_DIR, "pixel_ship_red_small.png")), (40, 30))
-# Lasers
-RED_LASER = pygame.transform.scale(pygame.image.load(
-    os.path.join(ASSETS_DIR, "pixel_laser_red.png")), (50, 40))
-# Backgrond
-BG = pygame.transform.scale(
-    pygame.image.load(
-        os.path.join(
-            ASSETS_DIR,
-            "background-black.png")),
-    (WIDTH,
-     HEIGHT))
-
-
-def main(exp_number=None):
+def logic(exp_number=None):
     """ Main logic of the simulation.
         Here, initialization and movement of agents is happening.
 
@@ -64,6 +21,49 @@ def main(exp_number=None):
             An integer that will be used for the name of the text file for the results. If it's set to None,
             results text file is not going to be created.
     """
+    
+    if not sys.warnoptions:
+        warnings.simplefilter("ignore")
+
+    """Set PyGame settings"""
+
+    # To show counter, font needs to be initialized
+    pygame.font.init()
+    # Set window width/height and name of window
+    WIDTH, HEIGHT = 1000, 800
+    # The main window to show the running simulation
+    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Agent Simulation")
+    # Using the font to display surviving agents
+    main_font = pygame.font.SysFont("comicsans", int(WIDTH / 25))
+
+    """Load everything needed for the simulation"""
+    # Load JSON file
+    json_service_obj = JsonService()
+    CONFIG_DICT = json_service_obj.get_json_dict()
+    print(CONFIG_DICT)
+    random.seed(CONFIG_DICT['random_seed'])
+    
+    # Get directory of current file
+    SOURCE_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+    print(SOURCE_FILE_DIR)
+    # Load assets
+    ASSETS_DIR = os.path.join(SOURCE_FILE_DIR, "assets")
+    # Drone
+    RED_AGENT = pygame.transform.scale(pygame.image.load(
+    os.path.join(ASSETS_DIR, "pixel_ship_red_small.png")), (40, 30))
+    # Lasers
+    RED_LASER = pygame.transform.scale(pygame.image.load(
+    os.path.join(ASSETS_DIR, "pixel_laser_red.png")), (50, 40))
+    # Backgrond
+    BG = pygame.transform.scale(
+    pygame.image.load(
+        os.path.join(
+            ASSETS_DIR,
+            "background-black.png")),
+    (WIDTH,
+     HEIGHT))
+
     waves_of_bullets = 0
     tick_counter = 0
     agents_to_wave = dict()
@@ -81,6 +81,8 @@ def main(exp_number=None):
     xxpos = int((WIDTH - xpos * 2) / (CONFIG_DICT['wave_length'] - 1))
     number_waves = CONFIG_DICT['no_of_waves']
     just_once = False
+    
+    bool_loc, bool_config, bool_perm_config, bool_move = True, True, True, True
 
     def redraw_window():
         """ This function can only be called in "main" Function. Basically updates window every frame
@@ -195,16 +197,20 @@ def main(exp_number=None):
                         agents.remove(agent)
                 except ValueError:
                     pass
+                
+        if CONFIG_DICT['communication'] == 'centralized' or CONFIG_DICT['communication'] == 'decentralized':
+            if CONFIG_DICT['communication'] == 'centralized':
+                agents, bool_loc, bool_config, bool_perm_config, bool_move = centralized_logic(agents, xxpos, CONFIG_DICT, bool_loc, bool_config, bool_perm_config, bool_move)
 
-        for agent in agents[:]:
-            for tnega in agents:
-                if agent != tnega:
-                    if abs(
+            for agent in agents[:]:
+                for tnega in agents:
+                    if agent != tnega:
+                        if abs(
                             agent.x -
                             tnega.x) < CONFIG_DICT['cover_radius'] and agent.health == 1 and agent.cover == False and tnega.health != 1 and CONFIG_DICT['to_cover'] == True and tnega.cost != 0:
-                        cover(agent, tnega)
-                        agent.cover = True
-                        tnega.cost -= 1
+                            cover(agent, tnega)
+                            agent.cover = True
+                            tnega.cost -= 1
 
         # Finally, redraw_window function is called to update every object on
         # the screen for the next frame
@@ -228,13 +234,3 @@ def main(exp_number=None):
         agents_to_wave=agents_to_wave,
         comp_time_to_wave=comp_time_to_wave)
     results_service_obj.save_results()
-
-
-if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser(description='Run drone simulatiom')
-    parser.add_argument('--exp_number', required=False,
-                        help='number of experiment')
-    args = parser.parse_args()
-    main(exp_number=args.exp_number)
