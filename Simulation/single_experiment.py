@@ -26,5 +26,4 @@ json_service_obj.update_json_dict(json_dict)
 # logic() expects argument "exp_number" so that we can save multiple
 # experiments results
 exp_number = 11
-for i in range(10):
-    main.logic(exp_number)
+main.logic(exp_number)
