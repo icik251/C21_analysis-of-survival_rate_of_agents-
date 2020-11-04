@@ -31,19 +31,10 @@ How to use JsonService?
 * dir_to_save_exp : Directory where the current experiment is saved. The default value is None. The parameter can take any string that is a directory path.
 * cost_value : Number of times each agent can cover other agents. The default value is 3, however we plan to do experiments with values of 1 and 2 as well. The parameter can take any positive integer.
 
-# Requirement for the directory path - IMPORTANT!
-The path to the project folder should not have any spaces.
-* D:\PythonProjects\DMAS Project\...\ - This will not work when running experiment. - WRONG!
-* D:\PythonProjects\DMAS_Project\...\ - This will successfully run the experiment. - CORRECT!
-
-The reason is that we call the "main.py" in "single_experiment.py" and "multiple_experiment.py" from a subproccess package which have problems reading the path even when it is an abolute path provided.
-
 # How to run a single experiment
 1. In "Simulation" folder open the "single_experiment.py" file.
 2. Make sure to set parameter values (see the section above). Otherwise the experiment is going to be conducted with the default values.
 3. Run "single_experiment.py" file.
-------------------------------------
-You can also run "main.py" for a single simulation. However, this will not save any results for the experiment.
 
 # How to run multiple experiments (our experiment design)
 1. In "Simulation" folder open the "multiple_experiment.py" file.
